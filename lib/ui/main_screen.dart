@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'myrecipes/my_recipes_list.dart';
 import 'recipes/recipe_list.dart';
@@ -19,6 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   List<Widget> pageList = <Widget>[];
   static const String prefSelectedIndexKey = 'selectedIndex';
+
   @override
   void initState() {
     super.initState();
@@ -30,13 +31,11 @@ class _MainScreenState extends State<MainScreen> {
 
   void saveCurrentIndex() async {
     final prefs = await SharedPreferences.getInstance();
-
     prefs.setInt(prefSelectedIndexKey, _selectedIndex);
   }
 
   void getCurrentIndex() async {
     final prefs = await SharedPreferences.getInstance();
-
     if (prefs.containsKey(prefSelectedIndexKey)) {
       setState(() {
         final index = prefs.getInt(prefSelectedIndexKey);
@@ -76,20 +75,17 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavigationBarItem(
               icon: SvgPicture.asset('assets/images/icon_recipe.svg',
-                  colorFilter:
-                      _selectedIndex == 0 ? activeIconColor : inActiveIconColor,
+                  colorFilter: _selectedIndex == 0 ? activeIconColor : inActiveIconColor,
                   semanticsLabel: 'Recipes'),
               label: 'Recipes'),
           BottomNavigationBarItem(
               icon: SvgPicture.asset('assets/images/icon_bookmarks.svg',
-                  colorFilter:
-                      _selectedIndex == 1 ? activeIconColor : inActiveIconColor,
+                  colorFilter: _selectedIndex == 1 ? activeIconColor : inActiveIconColor,
                   semanticsLabel: 'Bookmarks'),
               label: 'Bookmarks'),
           BottomNavigationBarItem(
               icon: SvgPicture.asset('assets/images/icon_shopping_list.svg',
-                  colorFilter:
-                      _selectedIndex == 2 ? activeIconColor : inActiveIconColor,
+                  colorFilter: _selectedIndex == 2 ? activeIconColor : inActiveIconColor,
                   semanticsLabel: 'Groceries'),
               label: 'Groceries'),
         ],
@@ -102,12 +98,13 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.white,
         systemOverlayStyle: const SystemUiOverlayStyle(
           systemNavigationBarColor: Colors.white,
-          statusBarColor: Colors.black,
+          statusBarColor: Colors.white,
           statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.dark,
           systemNavigationBarDividerColor: Colors.white,
+          //Navigation bar divider color
           systemNavigationBarIconBrightness:
-          Brightness.light, //navigation bar icon
+              Brightness.light, //navigation bar icon
         ),
         title: Text(
           title,

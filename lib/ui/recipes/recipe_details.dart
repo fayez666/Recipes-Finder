@@ -19,7 +19,7 @@ class RecipeDetails extends StatelessWidget {
                 Stack(
                   children: [
                     Align(
-                      alignment: Alignment.topLeft,
+                      alignment: Alignment.topCenter,
                       // TODO 1
                       child: Image.asset(
                         'assets/images/pizza_w700.png',
@@ -75,7 +75,8 @@ class RecipeDetails extends StatelessWidget {
                     },
                     icon: SvgPicture.asset(
                       'assets/images/icon_bookmark.svg',
-                      color: Colors.white,
+                      colorFilter:
+                          const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                     ),
                     label: const Text(
                       'Bookmark',
