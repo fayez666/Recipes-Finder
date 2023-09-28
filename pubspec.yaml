@@ -31,6 +31,7 @@ dependencies:
   cached_network_image: ^3.2.3
   chopper: ^6.1.4
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_slidable: ^3.0.0
@@ -39,6 +40,7 @@ dependencies:
   json_annotation: ^4.8.1
   logging: ^1.2.0
   platform: ^3.1.0
+  provider: ^6.0.5
   shared_preferences: ^2.2.0
 
 dev_dependencies:

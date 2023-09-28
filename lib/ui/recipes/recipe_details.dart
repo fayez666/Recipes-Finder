@@ -1,13 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_finder/network/recipe_model.dart';
 
+import '../../data/memory_repository.dart';
+import '../../data/models/recipe.dart';
 import '../colors.dart';
 
 class RecipeDetails extends StatelessWidget {
-  const RecipeDetails({Key? key}) : super(key: key);
+  final Recipe recipe;
+  const RecipeDetails({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final repository = Provider.of<MemoryRepository>(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -19,12 +27,12 @@ class RecipeDetails extends StatelessWidget {
                 Stack(
                   children: [
                     Align(
-                      alignment: Alignment.topCenter,
-                      // TODO 1
-                      child: Image.asset(
-                        'assets/images/pizza_w700.png',
-                        height: 200,
-                        width: 200,
+                      alignment: Alignment.topLeft,
+                      child: CachedNetworkImage(
+                        imageUrl: recipe.image ?? "",
+                        alignment: Alignment.topLeft,
+                        fit: BoxFit.fill,
+                        width: size.width,
                       ),
                     ),
                     Align(
@@ -42,22 +50,20 @@ class RecipeDetails extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 16.0),
+                 Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
                   child: Text(
-                    // TODO 2
-                    'Chicken Vesuvio',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    recipe.label ?? "",
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                const Padding(
-                    padding: EdgeInsets.only(left: 16.0),
+                 Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
                     child: Chip(
-                      // TODO 3
-                      label: Text('16CAL'),
+                      label: Text(getCalories(recipe.calories)),
                     )),
                 const SizedBox(
                   height: 16,
@@ -70,7 +76,7 @@ class RecipeDetails extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16.0)),
                     ),
                     onPressed: () {
-                      // TODO 4
+                      repository.insertRecipe(recipe);
                       Navigator.pop(context);
                     },
                     icon: SvgPicture.asset(
